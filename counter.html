@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  <title>アイテム選択カウント</title>
+  <style>
+    body {
+      background-color: papayawhip;
+ 
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      table-layout: fixed; /* 列幅を固定 */
+    }
+    table, th, td {
+      border: 5px solid black;
+      border-color: palevioletred;
+      font-size: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      font-weight: bold; /* 数字を太字にする */
+    }
+    td {
+      width: 8%; /* 各セルの幅を均等に設定 */
+      font-size: 20px;
+    }
+    th {
+      background-color: #f2f2f2; /* ヘッダーに色をつける */
+    }
+    #win, #win1,#pri,#totalAmount2,#totalAmount3{
+      text-align: center;
+      font-size: 50px;
+    }
+    #ものひろお{
+      width: 150px;
+      height: 30px;
+    }#ものひろた{
+      width: 150px;
+      height: 30px;
+    }#ものひろえ{
+      width: 150px;
+      height: 30px;
+    }#ものひろし{
+      width: 150px;
+      height: 30px;
+    }
+    #ものひろこ{
+      width: 150px;
+      height: 30px;
+    }
+    .drop{
+      margin-left: 20px;
+    }
+    #resultTable2{
+      width: 1250px;
+      height: 400px;
+      margin: auto;
+      font-size: 0px;
+    }
+    #bot{
+      width: 120px;
+      height: 50px;
+      margin: 20px;
+    }
+    .head{
+      text-align: center;
+      font-size: 50px;
+    }
+    .start{
+      font-size: 50px;
+      color: goldenrod;
+    }
+    .gra{
+      display: flex;
+      align-items: center;
+      width: 1050px;
+    }
+    #myBarChart2{
+      position: relative;
+      left: 180px;
+    }
+    #myBarChart{
+      position: relative;
+      left: 140px;
+    }
+    .main{
+      font-size: 30px;
+      margin-left: 200px;
+      margin-right: 200px;
+    }
+    .myBarChart35{
+      margin: auto;
+      width: 1050px;
+    }
+    #myBarChart5{
+      position: relative;
+      left: 180px;
+    }
+    #myBarChart6{
+      position: relative;
+      left: 140px;
+    }
+    .text{
+      display: flex;
+      align-items: center;
+    }
+    #win1{
+      position: relative;
+      left: 320px;
+    }
+    #win2{
+      position: relative;
+      left: 600px;
+      font-size: 50px;
+    }
+    #dro{
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  
+<img src="C:\Users\しずえ\OneDrive\画像\スクリーンショット\スクリーンショット (850).png" style="float: right;" alt="画像の説明" width="298">
+<h1 class="start">みこちと金コイ伝説　ものひろいカウンター</h1>
+<h1 id="day">〇日目 配信時間 : 00:00:00</h1>
+
+  <!-- 名前ごとのプルダウンメニュー -->
+   <div id = "dro">
+  <div class="drop">
+    <label for="ものひろお">ものひろお</label>
+    <select id="ものひろお" >
+      <option value="">選択なし</option>
+      <option value="いいキズぐすり">いいキズぐすり</option>
+      <option value="なんでもなおし">なんでもなおし</option>
+      <option value="ハイパーボール">ハイパーボール</option>
+      <option value="かいふくのくすり">かいふくのくすり</option>
+      <option value="げんきのかけら">げんきのかけら</option>
+      <option value="ふしぎなアメ">ふしぎなアメ</option>
+      <option value="きんのたま">きんのたま</option>
+      <option value="タウリン">タウリン</option>
+      <option value="ポイントアップ">ポイントアップ</option>
+      <option value="おうじゃのしるし">おうじゃのしるし</option>
+    </select>
+  </div>
+  <div class="drop">
+    <label for="ものひろた">ものひろた</label>
+    <select id="ものひろた" >
+      <option value="">選択なし</option>
+      <option value="いいキズぐすり">いいキズぐすり</option>
+      <option value="なんでもなおし">なんでもなおし</option>
+      <option value="ハイパーボール">ハイパーボール</option>
+      <option value="かいふくのくすり">かいふくのくすり</option>
+      <option value="げんきのかけら">げんきのかけら</option>
+      <option value="ふしぎなアメ">ふしぎなアメ</option>
+      <option value="きんのたま">きんのたま</option>
+      <option value="タウリン">タウリン</option>
+      <option value="ポイントアップ">ポイントアップ</option>
+      <option value="おうじゃのしるし">おうじゃのしるし</option>
+    </select>
+  </div>
+  <div class="drop">
+    <label for="ものひろえ">ものひろえ</label>
+    <select id="ものひろえ" >
+      <option value="">選択なし</option>
+      <option value="いいキズぐすり">いいキズぐすり</option>
+      <option value="なんでもなおし">なんでもなおし</option>
+      <option value="ハイパーボール">ハイパーボール</option>
+      <option value="かいふくのくすり">かいふくのくすり</option>
+      <option value="げんきのかけら">げんきのかけら</option>
+      <option value="ふしぎなアメ">ふしぎなアメ</option>
+      <option value="きんのたま">きんのたま</option>
+      <option value="タウリン">タウリン</option>
+      <option value="ポイントアップ">ポイントアップ</option>
+      <option value="おうじゃのしるし">おうじゃのしるし</option>
+    </select>
+  </div>
+  <div class="drop">
+    <label for="ものひろし">ものひろし</label>
+    <select id="ものひろし" >
+      <option value="">選択なし</option>
+      <option value="いいキズぐすり">いいキズぐすり</option>
+      <option value="なんでもなおし">なんでもなおし</option>
+      <option value="ハイパーボール">ハイパーボール</option>
+      <option value="かいふくのくすり">かいふくのくすり</option>
+      <option value="げんきのかけら">げんきのかけら</option>
+      <option value="ふしぎなアメ">ふしぎなアメ</option>
+      <option value="きんのたま">きんのたま</option>
+      <option value="タウリン">タウリン</option>
+      <option value="ポイントアップ">ポイントアップ</option>
+      <option value="おうじゃのしるし">おうじゃのしるし</option>
+    </select>
+  </div>
+  <div class="drop">
+    <label for="ものひろこ">ものひろこ</label>
+    <select id="ものひろこ" >
+      <option value="">選択なし</option>
+      <option value="いいキズぐすり">いいキズぐすり</option>
+      <option value="なんでもなおし">なんでもなおし</option>
+      <option value="ハイパーボール">ハイパーボール</option>
+      <option value="かいふくのくすり">かいふくのくすり</option>
+      <option value="げんきのかけら">げんきのかけら</option>
+      <option value="ふしぎなアメ">ふしぎなアメ</option>
+      <option value="きんのたま">きんのたま</option>
+      <option value="タウリン">タウリン</option>
+      <option value="ポイントアップ">ポイントアップ</option>
+      <option value="おうじゃのしるし">おうじゃのしるし</option>
+    </select>
+  </div>
+   </div>
+
+  <!-- 確定ボタン -->
+  <button id="bot" onclick="updateTable()">集計</button>
+  <button id="bot" onclick="save()">保存</button>
+  <button id="bot" onclick="reset()">リセット</button>
+  <br>
+  <br>
+  <label for="配信時間">配信時間</label>
+  <input type="text" id="timeInput" placeholder="例: 01:30:45" style="height: 25px;">
+  <br>
+  <button id="bot" onclick="time()">確定</button>
+
+  <h1 class="head">今回ひろったアイテムの集計</h1>
+  <!-- 結果のテーブル -->
+  <table id="resultTable">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>いいキズぐすり</th>
+        <th>なんでもなおし</th>
+        <th>ハイパーボール</th>
+        <th>かいふくのくすり</th>
+        <th>げんきのかけら</th>
+        <th>ふしぎなアメ</th>
+        <th>きんのたま</th>
+        <th>タウリン</th>
+        <th>ポイントアップ</th>
+        <th>おうじゃのしるし</th>
+        <th>合計</th> <!-- 合計列の追加 -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ものひろお</td>
+        <td id="ものひろお_1">0</td>
+        <td id="ものひろお_2">0</td>
+        <td id="ものひろお_3">0</td>
+        <td id="ものひろお_4">0</td>
+        <td id="ものひろお_5">0</td>
+        <td id="ものひろお_6">0</td>
+        <td id="ものひろお_7">0</td>
+        <td id="ものひろお_8">0</td>
+        <td id="ものひろお_9">0</td>
+        <td id="ものひろお_10">0</td>
+        <td id="ものひろお_total">0</td> <!-- 合計セル -->
+      </tr>
+      <tr>
+        <td>ものひろた</td>
+        <td id="ものひろた_1">0</td>
+        <td id="ものひろた_2">0</td>
+        <td id="ものひろた_3">0</td>
+        <td id="ものひろた_4">0</td>
+        <td id="ものひろた_5">0</td>
+        <td id="ものひろた_6">0</td>
+        <td id="ものひろた_7">0</td>
+        <td id="ものひろた_8">0</td>
+        <td id="ものひろた_9">0</td>
+        <td id="ものひろた_10">0</td>
+        <td id="ものひろた_total">0</td> <!-- 合計セル -->
+      </tr>
+      <tr>
+        <td>ものひろえ</td>
+        <td id="ものひろえ_1">0</td>
+        <td id="ものひろえ_2">0</td>
+        <td id="ものひろえ_3">0</td>
+        <td id="ものひろえ_4">0</td>
+        <td id="ものひろえ_5">0</td>
+        <td id="ものひろえ_6">0</td>
+        <td id="ものひろえ_7">0</td>
+        <td id="ものひろえ_8">0</td>
+        <td id="ものひろえ_9">0</td>
+        <td id="ものひろえ_10">0</td>
+        <td id="ものひろえ_total">0</td> <!-- 合計セル -->
+      </tr>
+      <tr>
+        <td>ものひろし</td>
+        <td id="ものひろし_1">0</td>
+        <td id="ものひろし_2">0</td>
+        <td id="ものひろし_3">0</td>
+        <td id="ものひろし_4">0</td>
+        <td id="ものひろし_5">0</td>
+        <td id="ものひろし_6">0</td>
+        <td id="ものひろし_7">0</td>
+        <td id="ものひろし_8">0</td>
+        <td id="ものひろし_9">0</td>
+        <td id="ものひろし_10">0</td>
+        <td id="ものひろし_total">0</td> <!-- 合計セル -->
+      </tr>
+      <tr>
+        <td>ものひろこ</td>
+        <td id="ものひろこ_1">0</td>
+        <td id="ものひろこ_2">0</td>
+        <td id="ものひろこ_3">0</td>
+        <td id="ものひろこ_4">0</td>
+        <td id="ものひろこ_5">0</td>
+        <td id="ものひろこ_6">0</td>
+        <td id="ものひろこ_7">0</td>
+        <td id="ものひろこ_8">0</td>
+        <td id="ものひろこ_9">0</td>
+        <td id="ものひろこ_10">0</td>
+        <td id="ものひろこ_total">0</td> <!-- 合計セル -->
+      </tr>
+      <tr id="totalRow">
+        <td>合計</td>
+        <td id="total_1">0</td>
+        <td id="total_2">0</td>
+        <td id="total_3">0</td>
+        <td id="total_4">0</td>
+        <td id="total_5">0</td>
+        <td id="total_6">0</td>
+        <td id="total_7">0</td>
+        <td id="total_8">0</td>
+        <td id="total_9">0</td>
+        <td id="total_10">0</td>
+        <td id="grandTotal">0</td> <!-- 合計金額 -->
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 id = "win"></h1>
+  <br>
+  <h1 class="head">もの一族の成績</h1>
+
+  <table id="resultTable2">
+    <thead>
+      <tr>
+        <th></th>
+        <th>今回稼いだ金額合計</th>
+        <th>今回拾った個数合計</th>
+        <th>これまで稼いだ金額合計</th>
+        <th>これまで拾った個数合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ものひろお</td>
+        <td id="ものひろお_to1">0</td>
+        <td id="ものひろお_to1.5">0</td>
+        <td id="ものひろお_to2">0</td>
+        <td id="ものひろお_to3">0</td>
+      </tr>
+      <tr>
+        <td>ものひろた</td>
+        <td id="ものひろた_to1">0</td>
+        <td id="ものひろた_to1.5">0</td>
+        <td id="ものひろた_to2">0</td>
+        <td id="ものひろた_to3">0</td>
+      </tr>
+      <tr>
+        <td>ものひろえ</td>
+        <td id="ものひろえ_to1">0</td>
+        <td id="ものひろえ_to1.5">0</td>
+        <td id="ものひろえ_to2">0</td>
+        <td id="ものひろえ_to3">0</td>
+      </tr>
+      <tr>
+        <td>ものひろし</td>
+        <td id="ものひろし_to1">0</td>
+        <td id="ものひろし_to1.5">0</td>
+        <td id="ものひろし_to2">0</td>
+        <td id="ものひろし_to3">0</td>
+      </tr>
+      <tr>
+        <td>ものひろこ</td>
+        <td id="ものひろこ_to1">0</td>
+        <td id="ものひろこ_to1.5">0</td>
+        <td id="ものひろこ_to2">0</td>
+        <td id="ものひろこ_to3">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 id = "pri"></h1>
+  <h1 id="totalAmount2"></h1>
+  <h1 id="totalAmount3"></h1>
+  <br>
+  <div class="myBarChart35">
+    <canvas id="myBarChart3" ></canvas>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+  <div class="text">
+    <h1 id ="win1"></h1>
+    <h1 id="win2"></h1>
+  </div>
+  <div class="gra">
+    <canvas id="myBarChart5" ></canvas>
+    <canvas id="myBarChart6" ></canvas>
+    </div>
+    <br>
+  <br>
+  <p class="main">総稼ぎが多くてもすべて売却するわけではないので、みこちが引いて特に嬉しそうだった"きんのたま"と"ふしぎなアメ"に絞って集計してみました。</p>
+  <p class="main">もの一族選別の参考にどうぞ</p>
+  <h1 class="head">”きんのたま”  ,  "ふしぎなアメ"の総取得数</h1>
+  <div class="gra">
+  <canvas id="myBarChart" ></canvas>
+  <canvas id="myBarChart2" ></canvas>
+  </div>
+
+  <script>
+
+    //トータルの金額とか個数とか
+    let totalprice = 3365250;
+    let totalhave = 2098;
+    let ototalprice = 754200;
+    let ototalhave = 434;
+    let ttotalprice = 628850;
+    let ttotalhave = 412;
+    let etotalprice = 634250;
+    let etotalhave = 411;
+    let stotalprice = 688550;
+    let stotalhave = 420;
+    let ktotalprice = 659400; 
+    let ktotalhave = 421;
+
+    //きんのたま
+    let okin = 44;
+    let tkin = 35;
+    let ekin = 37;
+    let skin = 51;
+    let kkin = 36;
+
+    //ふしぎなアメ
+    let oame = 52;
+    let tame = 45;
+    let eame = 43;
+    let same = 43;
+    let kame = 46;
+
+    // アイテムの価格設定
+    const prices = {
+      "いいキズぐすり": 350,
+      "なんでもなおし": 300,
+      "ハイパーボール": 600,
+      "かいふくのくすり": 1500,
+      "げんきのかけら": 750,
+      "ふしぎなアメ": 2400,
+      "きんのたま": 5000,
+      "タウリン": 4900,
+      "ポイントアップ": 4900,
+      "おうじゃのしるし": 50
+    };
+    // カウントを保存するためのオブジェクトを作成
+    let counts = {
+      "ものひろお": new Array(10).fill(0),
+      "ものひろた": new Array(10).fill(0),
+      "ものひろえ": new Array(10).fill(0),
+      "ものひろし": new Array(10).fill(0),
+      "ものひろこ": new Array(10).fill(0)
+    };
+
+    let totalAmount7 = 0;
+    let totalAmount4 = 0;
+    let totalAmount5 = 0;
+    let totalAmount2 = 0;
+    let totalAmount6 = 0;
+
+    let totalSeconds = 0;
+    let count1 = 0;
+  
+    // 「きんのたま」と「ふしぎなアメ」の列で最大の値を持つ名前を表示
+function updateTable() {
+  const items = [
+    "いいキズぐすり", "なんでもなおし", "ハイパーボール", "かいふくのくすり", "げんきのかけら", 
+    "ふしぎなアメ", "きんのたま", "タウリン", "ポイントアップ", "おうじゃのしるし"
+  ];
+
+  const selections = {
+    "ものひろお": document.getElementById('ものひろお').value,
+    "ものひろた": document.getElementById('ものひろた').value,
+    "ものひろえ": document.getElementById('ものひろえ').value,
+    "ものひろし": document.getElementById('ものひろし').value,
+    "ものひろこ": document.getElementById('ものひろこ').value
+  };
+
+  // 名前ごとに選択されたアイテムのインデックスを取得してカウントを更新
+  for (let person in selections) {
+    const choice = selections[person];
+    if (choice === "") continue; // 空が選ばれた場合はカウントしない
+    const index = items.indexOf(choice);
+    if (index !== -1) {
+      counts[person][index]++;
+      // カウントを反映
+      document.getElementById(`${person}_${index + 1}`).innerText = counts[person][index];
+    }
+  }
+
+  // 合計を計算して表示
+  for (let person in counts) {
+    const total = counts[person].reduce((sum, num) => sum + num, 0);
+    document.getElementById(`${person}_total`).innerText = total;
+    document.getElementById(`${person}_total`).value = total;
+  }
+
+  // 列ごとに最大値を赤文字にする
+  for (let col = 0; col < 10; col++) {
+    let maxVal = -1;
+    let maxIndexes = [];
+
+    // 各列の最大値を見つける
+    for (let row = 0; row < 5; row++) {
+      const personList = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+      const value = counts[personList[row]][col];
+
+      if (value > maxVal) {
+        maxVal = value;
+        maxIndexes = [row];
+      } else if (value === maxVal) {
+        maxIndexes.push(row);
+      }
+    }
+
+    // 0以外の値があるセルを赤色にする
+    if (maxVal > 0) {
+      // 色を元に戻す
+      for (let row = 0; row < 5; row++) {
+        const personList = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+        document.getElementById(`${personList[row]}_${col + 1}`).style.color = "black";
+      }
+
+      // 最大値を持つセルを赤くする
+      for (let i of maxIndexes) {
+        const maxPerson = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"][i];
+        document.getElementById(`${maxPerson}_${col + 1}`).style.color = "red";
+      }
+    }
+  }
+
+  // 合計列で最大の値を赤文字にする
+  let maxTotal = -1;
+  let maxTotalIndexes = [];
+  for (let row = 0; row < 5; row++) {
+    const personList = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+    const total = parseInt(document.getElementById(`${personList[row]}_total`).innerText);
+    if (total > maxTotal) {
+      maxTotal = total;
+      maxTotalIndexes = [row];
+    } else if (total === maxTotal) {
+      maxTotalIndexes.push(row);
+    }
+  }
+
+  // 合計の色を元に戻す
+  for (let row = 0; row < 5; row++) {
+    const personList = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+    document.getElementById(`${personList[row]}_total`).style.color = "black";
+  }
+
+  // 最大の合計を持つ行の色を赤にする
+  for (let i of maxTotalIndexes) {
+    const maxPerson = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"][i];
+    document.getElementById(`${maxPerson}_total`).style.color = "red";
+  }
+
+  // 最大の合計を持つ行を見つける
+  let maxTotal2 = -1;
+  let maxTotalIndex = "";
+  for (let person in counts) {
+    const total = counts[person].reduce((sum, num) => sum + num, 0);
+    if (total > maxTotal2) {
+      maxTotal2 = total;
+      maxTotalIndex = person;
+    }
+  }
+
+  // 合計額を計算
+  let max = -1;
+      let maxTo = "";
+      for (let person in counts) {
+        const totalItems = counts[person];
+        let totalAmount = 0;
+        for (let i = 0; i < totalItems.length; i++) {
+          totalAmount += totalItems[i] * prices[items[i]]; 
+        }
+        const total = totalAmount;
+        if (total > max) {
+          max = total;
+          maxTo = person;
+        }
+      }
+
+      // ひろしの合計額を計算
+      let maxTo2 = "";
+
+        const totalItems = counts["ものひろし"];
+        totalAmount2 = 0;
+        for (let i = 0; i < totalItems.length; i++) {
+          totalAmount2 += totalItems[i] * prices[items[i]]; 
+        }
+ 
+        // ひろたの合計額を計算
+      let maxTo4 = "";
+
+const totalItems4 = counts["ものひろた"];
+totalAmount4 = 0;
+for (let i = 0; i < totalItems4.length; i++) {
+  totalAmount4 += totalItems4[i] * prices[items[i]]; 
+}
+
+// ひろえの合計額を計算
+let maxTo5 = "";
+
+const totalItems5 = counts["ものひろえ"];
+totalAmount5 = 0;
+for (let i = 0; i < totalItems5.length; i++) {
+  totalAmount5 += totalItems5[i] * prices[items[i]]; 
+}
+
+// ひろこの合計額を計算
+let maxTo6 = "";
+
+const totalItems6 = counts["ものひろこ"];
+totalAmount6 = 0;
+for (let i = 0; i < totalItems6.length; i++) {
+  totalAmount6 += totalItems6[i] * prices[items[i]]; 
+}
+
+// ひろおの合計額を計算
+let maxTo7 = "";
+
+const totalItems7 = counts["ものひろお"];
+totalAmount7 = 0;
+for (let i = 0; i < totalItems7.length; i++) {
+  totalAmount7 += totalItems7[i] * prices[items[i]]; 
+}
+
+// 総合計の計算
+let totalSum = new Array(10).fill(0); // 10アイテム分の合計を計算
+    for (let person in counts) {
+      counts[person].forEach((count, index) => {
+        totalSum[index] += count;
+      });
+    }
+
+      // 合計行に合計を表示
+      totalSum.forEach((sum, index) => {
+        document.getElementById(`total_${index + 1}`).innerText = sum;
+      });
+
+    // アイテムの合計額を計算
+    let totalAmount = 0;
+    totalSum.forEach((count, index) => {
+      totalAmount += count * prices[items[index]];
+    });
+    //固定値変更
+    totalAmount9 = totalAmount + totalprice;
+
+    document.getElementById("totalAmount2").innerHTML = `もの一族が今回稼いだ金額合計: ${totalAmount}円`; // 合計金額表示
+    document.getElementById("totalAmount2").innerHTML += `<br>これまでもの一族が稼いだ金額合計:${totalAmount9}円`; // 合計金額表示
+    document.getElementById("grandTotal").innerText = document.getElementById("ものひろお_total").value + document.getElementById("ものひろた_total").value + document.getElementById("ものひろえ_total").value + document.getElementById("ものひろし_total").value + document.getElementById("ものひろこ_total").value;
+
+    // 最大合計の名前と合計値を表示
+    //固定値変更
+  document.getElementById('win').innerHTML = `えりーとものひろいは、<span style="color: red;text-decoration: underline; text-decoration-color: black;">${maxTotalIndex}</span> ！ ひろった個数：${maxTotal}個`;
+  document.getElementById('totalAmount3').innerHTML = `今回拾ったもの合計 : ${document.getElementById("grandTotal").textContent} 個`;
+  document.getElementById('totalAmount3').innerHTML += `<br>これまで拾ったもの合計 : ${totalhave + document.getElementById("ものひろお_total").value + document.getElementById("ものひろた_total").value + document.getElementById("ものひろえ_total").value + document.getElementById("ものひろし_total").value + document.getElementById("ものひろこ_total").value}個`;
+  document.getElementById('ものひろお_to1').innerHTML = `${totalAmount7} 円`;
+  document.getElementById('ものひろお_to1.5').innerHTML = `${document.getElementById(`ものひろお_total`).value } 個`;
+  document.getElementById('ものひろお_to2').innerHTML = `${totalAmount7 + ototalprice} 円`;
+  document.getElementById('ものひろお_to3').innerHTML = `${document.getElementById(`ものひろお_total`).value + ototalhave} 個`;
+  document.getElementById('ものひろた_to1').innerHTML = `${totalAmount4} 円`;
+  document.getElementById('ものひろた_to1.5').innerHTML = `${document.getElementById(`ものひろた_total`).value} 個`;
+  document.getElementById('ものひろた_to2').innerHTML = `${totalAmount4 + ttotalprice} 円`;
+  document.getElementById('ものひろた_to3').innerHTML = `${document.getElementById(`ものひろた_total`).value + ttotalhave} 個`;
+  document.getElementById('ものひろえ_to1').innerHTML = `${totalAmount5} 円`;
+  document.getElementById('ものひろえ_to1.5').innerHTML = `${document.getElementById(`ものひろえ_total`).value} 個`;
+  document.getElementById('ものひろえ_to2').innerHTML = `${totalAmount5 + etotalprice} 円`;
+  document.getElementById('ものひろえ_to3').innerHTML = `${document.getElementById(`ものひろえ_total`).value + etotalhave} 個`;
+  document.getElementById('ものひろし_to1').innerHTML = `${totalAmount2} 円`;
+  document.getElementById('ものひろし_to1.5').innerHTML = `${document.getElementById(`ものひろし_total`).value} 個`;
+  document.getElementById('ものひろし_to2').innerHTML = `${totalAmount2 + stotalprice} 円`;
+  document.getElementById('ものひろし_to3').innerHTML = `${document.getElementById(`ものひろし_total`).value + stotalhave} 個`;
+  document.getElementById('ものひろこ_to1').innerHTML = `${totalAmount6} 円`;
+  document.getElementById('ものひろこ_to1.5').innerHTML = `${document.getElementById(`ものひろこ_total`).value} 個`;
+  document.getElementById('ものひろこ_to2').innerHTML = `${totalAmount6 + ktotalprice} 円`;
+  document.getElementById('ものひろこ_to3').innerHTML = `${document.getElementById(`ものひろこ_total`).value + ktotalhave} 個`;
+
+
+  // きんのたまとふしぎなアメの最大数を持つ行の名前を表示
+  let maxKinnoTama = -1;
+  let maxKinnoTamaPerson = "";
+  let maxFushiginaAme = -1;
+  let maxFushiginaAmePerson = "";
+
+  // 「きんのたま」(index 7) と「ふしぎなアメ」(index 6)の最大値を見つける
+  for (let row = 0; row < 5; row++) {
+    const personList = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+    const kinnoTamaValue = counts[personList[row]][6]; // きんのたま
+    const fushiginaAmeValue = counts[personList[row]][5]; // ふしぎなアメ
+
+    if (kinnoTamaValue > maxKinnoTama) {
+      maxKinnoTama = kinnoTamaValue;
+      maxKinnoTamaPerson = personList[row];
+    }
+
+    if (fushiginaAmeValue > maxFushiginaAme) {
+      maxFushiginaAme = fushiginaAmeValue;
+      maxFushiginaAmePerson = personList[row];
+    }
+  }
+
+  // 最大数を持つ行の名前を表示
+  document.getElementById('win').innerHTML += `<br>ふしぎなアメ王は、 <span style="color: red; text-decoration: underline; text-decoration-color: black;">${maxFushiginaAmePerson} </span> ！ ひろった個数 : ${maxFushiginaAme}個`;
+  document.getElementById('win').innerHTML += `<br>きんのたま王は、 <span style="color: red;text-decoration: underline; text-decoration-color: black;">${maxKinnoTamaPerson} </span> ！ ひろった個数 : ${maxKinnoTama}個`;
+  
+
+
+   // ここから最大値を求める部分を追加
+  // 「今回稼いだ金額合計」の列（`to1`）の最大値を計算
+  const amounts = [
+    "ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"
+  ];
+
+  let maxAmount = -1;
+  let maxAmountPerson = "";
+  let maxAmount0 = -1;
+  let maxAmountPerson0 = "";
+
+  for (let i = 0; i < amounts.length; i++) {
+    const person = amounts[i];
+    const currentAmount = parseInt(document.getElementById(`${person}_to1`).innerText);
+    if (currentAmount > maxAmount) {
+      maxAmount = currentAmount;
+      maxAmountPerson = person;
+    }
+    const currentAmount0 = parseInt(document.getElementById(`${person}_to2`).innerText);
+    if (currentAmount0 > maxAmount0) {
+      maxAmount0 = currentAmount0;
+      maxAmountPerson0 = person;
+    }
+  }
+
+  // 最大値を下の行に表示
+  document.getElementById("win1").innerHTML = `今回の成績トップは、${maxAmountPerson}！`;
+  document.getElementById("win2").innerHTML = `全体の成績トップは、${maxAmountPerson0}！`;
+
+  // プルダウンメニューをデフォルトに戻す
+  document.getElementById("ものひろお").selectedIndex = 0;
+  document.getElementById("ものひろた").selectedIndex = 0;
+  document.getElementById("ものひろえ").selectedIndex = 0;
+  document.getElementById("ものひろし").selectedIndex = 0;
+  document.getElementById("ものひろこ").selectedIndex = 0;
+
+
+  ///グラフ
+  const personList2 = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+  let o = counts[personList2[0]][6];
+  let t = counts[personList2[1]][6];
+  let e = counts[personList2[2]][6];
+  let s = counts[personList2[3]][6];
+  let k = counts[personList2[4]][6];
+
+  var ctx = document.getElementById("myBarChart");
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['ものひろお', 'ものひろた', 'ものひろえ', 'ものひろし', 'ものひろこ'],
+      datasets: [
+        {
+          label: 'きんのたま',
+          data: [okin + o, tkin + t, ekin + e, skin + s, kkin + k],
+          backgroundColor: "rgba(219,39,91,0.5)"
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'きんのたま取得数'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 40,
+            suggestedMin: 0,
+            stepSize: 5,
+            callback: function(value, index, values){
+              return  value +  '個'
+            }
+          }
+        }]
+      },
+    }
+  });
+
+  ///グラフ
+  let oa = counts[personList2[0]][5];
+  let ta = counts[personList2[1]][5];
+  let ea = counts[personList2[2]][5];
+  let sa = counts[personList2[3]][5];
+  let ka = counts[personList2[4]][5];
+
+  var ctx2 = document.getElementById("myBarChart2");
+  var myBarChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['ものひろお', 'ものひろた', 'ものひろえ', 'ものひろし', 'ものひろこ'],
+      datasets: [
+        {
+          label: 'ふしぎなアメ',
+          data: [oa + oame, ta + tame, ea + eame, sa + same, ka + kame],
+          backgroundColor: "lightblue"
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'ふしぎなアメ取得数'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 40,
+            suggestedMin: 0,
+            stepSize: 5,
+            callback: function(value, index, values){
+              return  value +  '個'
+            }
+          }
+        }]
+      },
+    }
+  });
+
+    ///個数(今回）グラフ
+
+  var ctx = document.getElementById("myBarChart3");
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['ものひろお', 'ものひろた', 'ものひろえ', 'ものひろし', 'ものひろこ'],
+      datasets: [
+        {
+          label: '今回拾ったもの合計',
+          data: [document.getElementById(`ものひろお_total`).value, document.getElementById(`ものひろた_total`).value, document.getElementById(`ものひろえ_total`).value, document.getElementById(`ものひろし_total`).value, document.getElementById(`ものひろこ_total`).value],
+          backgroundColor: "rgba(219,39,91,0.5)"
+        },{
+          label: 'これまで拾ったもの合計',
+          data: [document.getElementById(`ものひろお_total`).value + ototalhave, document.getElementById(`ものひろた_total`).value + ttotalhave, document.getElementById(`ものひろえ_total`).value + etotalhave, document.getElementById(`ものひろし_total`).value + stotalhave, document.getElementById(`ものひろこ_total`).value + ktotalhave],
+          backgroundColor: "lightblue"
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 150,
+            suggestedMin: 0,
+            stepSize: 20,
+            callback: function(value, index, values){
+              return  value +  '個'
+            }
+          }
+        }]
+      },
+    }
+  });
+
+  ///成績(今回）グラフ
+
+  var ctx = document.getElementById("myBarChart5");
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['ものひろお', 'ものひろた', 'ものひろえ', 'ものひろし', 'ものひろこ'],
+      datasets: [
+        {
+          label: '今回稼いだ金額合計',
+          data: [totalAmount7, totalAmount4, totalAmount5, totalAmount2, totalAmount6],
+          backgroundColor: "rgba(219,39,91,0.5)"
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 40000,
+            suggestedMin: 0,
+            stepSize: 5000,
+            callback: function(value, index, values){
+              return  value +  '円'
+            }
+          }
+        }]
+      },
+    }
+  });
+
+  ///成績(全体）グラフ
+
+  var ctx2 = document.getElementById("myBarChart6");
+  var myBarChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['ものひろお', 'ものひろた', 'ものひろえ', 'ものひろし', 'ものひろこ'],
+      datasets: [
+        {
+          label: 'これまで稼いだ金額合計',
+          data: [totalAmount7 + ototalprice, totalAmount4 + ttotalprice, totalAmount5 + etotalprice, totalAmount2 + stotalprice, totalAmount6 + ktotalprice],
+          backgroundColor: "lightblue"
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 500000,
+            suggestedMin: 0,
+            stepSize: 50000,
+            callback: function(value, index, values){
+              return  value +  '円'
+            }
+          }
+        }]
+      },
+    }
+  });
+}
+function save(){
+    totalprice = totalAmount9;
+    totalhave = totalhave + document.getElementById("ものひろお_total").value + document.getElementById("ものひろた_total").value + document.getElementById("ものひろえ_total").value + document.getElementById("ものひろし_total").value + document.getElementById("ものひろこ_total").value;
+    ototalprice = totalAmount7 + ototalprice;
+    ototalhave = document.getElementById(`ものひろお_total`).value + ototalhave;
+    ttotalprice = totalAmount4 + ttotalprice;
+    ttotalhave = document.getElementById(`ものひろた_total`).value + ttotalhave;
+    etotalprice = totalAmount5 + etotalprice;
+    etotalhave = document.getElementById(`ものひろえ_total`).value + etotalhave;
+    stotalprice = totalAmount2 + stotalprice;
+    stotalhave = document.getElementById(`ものひろし_total`).value + stotalhave;
+    ktotalprice = totalAmount6 + ktotalprice; 
+    ktotalhave = document.getElementById(`ものひろこ_total`).value + ktotalhave;
+
+    const personList2 = ["ものひろお", "ものひろた", "ものひろえ", "ものひろし", "ものひろこ"];
+   okin = counts[personList2[0]][6];
+   tkin = counts[personList2[1]][6];
+   ekin = counts[personList2[2]][6];
+   skin = counts[personList2[3]][6];
+   kkin = counts[personList2[4]][6];
+
+    oame = counts[personList2[0]][5];
+   tame = counts[personList2[1]][5];
+   eame = counts[personList2[2]][5];
+   same = counts[personList2[3]][5];
+   kame = counts[personList2[4]][5];
+}
+
+function reset(){
+  // すべての選択肢を「選択なし」にリセット
+  const selects = document.querySelectorAll('select');
+  selects.forEach(select => {
+    select.value = ""; // デフォルトの「選択なし」に設定
+  });
+
+  // すべてのカウントをゼロにリセット
+  for (let person in counts) {
+    counts[person].fill(0); // 0で初期化
+    // 表の値を更新
+    for (let i = 0; i < counts[person].length; i++) {
+      document.getElementById(`${person}_${i + 1}`).innerText = counts[person][i];
+    }
+    document.getElementById(`${person}_total`).innerText = 0; // 合計もゼロに設定
+  }
+
+  // 合計金額や合計個数をゼロにリセット
+  document.getElementById('grandTotal').innerText = 0;
+  for (let i = 0; i < 10; i++) {
+    document.getElementById(`total_${i + 1}`).innerText = 0; // 各列の合計をゼロに設定
+  }
+
+  // 営業成績の表もゼロにリセット
+  const resultTable2 = document.querySelectorAll('#resultTable2 td[id$="_to1"], #resultTable2 td[id$="_to1.5"], #resultTable2 td[id$="_to2"], #resultTable2 td[id$="_to3"]');
+  resultTable2.forEach(cell => {
+    cell.innerText = 0; // 営業成績をゼロにリセット
+  });
+
+  // グラフやその他の表示もリセット（必要なら）
+  document.getElementById('win').innerText = "";
+  document.getElementById('win1').innerText = "";
+  document.getElementById('totalAmount2').innerText = "";
+  document.getElementById('totalAmount3').innerText = "";
+
+  // 必要に応じてグラフをリセットする場合
+  // 例えば、Chart.js で作成されたグラフをリセットしたい場合は
+  // myBarChart.data.datasets[0].data = new Array(10).fill(0);
+  // myBarChart.update();
+}
+
+
+  function time() {
+  
+      const timeInput = document.getElementById('timeInput').value.trim();
+      const timePattern = /^([0-9]{2}):([0-9]{2}):([0-9]{2})$/;
+
+      if (timePattern.test(timeInput)) {
+        count1 = count1 + 1;
+        const matches = timeInput.match(timePattern);
+        const hours = parseInt(matches[1]);
+        const minutes = parseInt(matches[2]);
+        const seconds = parseInt(matches[3]);
+
+        // 時間、分、秒を秒単位に換算して合計に加算
+        totalSeconds += (hours * 3600) + (minutes * 60) + seconds;
+
+        // 合計秒数をhh:mm:ss形式に変換
+        const totalHours = Math.floor(totalSeconds / 3600);
+        const totalMinutes = Math.floor((totalSeconds % 3600) / 60);
+        const totalSecondsLeft = totalSeconds % 60;
+
+        // 合計時間を表示
+        document.getElementById('day').innerHTML =
+          count1 + "日目" + " " + "配信時間 : " + formatTime(totalHours) + ":" + formatTime(totalMinutes) + ":" + formatTime(totalSecondsLeft);
+        // 入力欄をリセット
+        document.getElementById('timeInput').value = '';
+      } else {
+        alert('hh:mm:ss 形式で時間を入力してください。');
+      }
+    }
+
+    // 2桁の形式にフォーマットするための関数
+    function formatTime(time) {
+      return time < 10 ? '0' + time : time;
+    }
+
+  </script>
+</body>
+</html>
