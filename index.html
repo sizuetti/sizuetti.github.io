@@ -1,38 +1,337 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
-        .section {
-            margin: 20px 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポケモン戦績記録</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fb;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 0;
+      background-color: pink;
+      color: black;
+      display: flex;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .container {
+      width: 80%;
+      margin: 30px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .input-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 16px;
+      margin-right: 12px;
+      width: 250px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4CAF50;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .battle-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    .battle-table th, .battle-table td {
+      padding: 12px 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .battle-table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .battle-table td {
+      background-color: #f9f9f9;
+    }
+
+    .battle-table tr:nth-child(even) td {
+      background-color: #f1f1f1;
+    }
+
+    .battle-table tr:hover td {
+      background-color: #e0e0e0;
+    }
+
+    .add-pokemon-btn {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .add-pokemon-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result-btn {
+      padding: 6px 14px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .result-btn.lose-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .result-btn.lose-btn:hover {
+      background-color: #e53935;
+    }
+
+    .result-btn.win-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .result-btn.win-btn:hover {
+      background-color: #45a049;
+    }
+
+    .totals {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 30px;
+      font-weight: 500;
+    }
+    #photo0{
+      position: relative;
+      left: 670px;
+    }
+    #starthed{
+      position: relative;
+      left: 680px;
+    }
+    #photo{
+      position: relative;
+      left: 690px;
+    }
+
+
+
+  </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    
-    <div class="section">
-        <h2>About</h2>
-        <p>こちらにサイトの説明を記載してください。</p>
+  <header>
+    <h1 id = "starthed">金コイキング戦績記録</h1>
+  </header>
+
+  <div class="container">
+    <!-- 総戦闘数表示 -->
+    <div class="totals">
+      <h2 id="total-battles">総戦闘数: 0</h2>
+      <h2 id="total-madi">ドーピング総数: 0</h2>
     </div>
 
-    <div class="section">
-        <h2>Contact</h2>
-        <p>連絡先情報があれば記載してください。</p>
+    <!-- 相手の名前を入力するセクション -->
+    <div class="input-section">
+      <label for="opponent">戦った相手の名前：</label>
+      <input type="text" id="opponent" placeholder="相手の名前を入力">
+      <button onclick="addOpponent()">追加</button>
+      <!--<button id="medi" onclick="addmedi()">ドーピング</button>-->
     </div>
+
+    <!-- 戦績テーブルが表示されるセクション -->
+    <div id="battle-tables"></div>
+  </div>
+
+  <script>
+    // 戦績データを保持するための配列
+    let opponents = [];
+
+    // 戦った相手を追加する関数
+    function addOpponent() {
+      const opponentName = document.getElementById('opponent').value;
+      if (!opponentName) {
+        alert("相手の名前を入力してください！");
+        return;
+      }
+
+      // 既存の相手がいないか確認し、新しい相手を追加
+      const opponentData = {
+        name: opponentName,
+        battles: []
+      };
+
+      opponents.push(opponentData);
+      document.getElementById('opponent').value = ""; // 入力フィールドをクリア
+
+      // 戦績テーブルを再描画
+      renderTables();
+    }
+
+    // 戦績テーブルを表示する関数
+    function renderTables() {
+      const battleTablesDiv = document.getElementById('battle-tables');
+      battleTablesDiv.innerHTML = ""; // 以前のテーブルを削除
+
+      let totalBattles = 0;
+      let lostgame = 0;
+      let madicount = 0;
+
+      // 各相手についてテーブルを生成
+      opponents.forEach(opponent => {
+        const totalWins = opponent.battles.reduce((acc, battle) => acc + battle.winCount, 0);
+        const totalLosses = opponent.battles.reduce((acc, battle) => acc + battle.loseCount, 0);
+        const totalmedis = opponent.battles.reduce((acc, battle) => acc + battle.mediCount, 0);
+
+        //opponent.battles.forEach(battle => {
+          //totalBattles++;  // 各ポケモン戦績行をカウント
+        //});
+
+        const rematchCount = totalLosses;  // 再戦回数は負け数に相当
+
+        const table = document.createElement('table');
+        table.classList.add('battle-table');
+        const tableHeader = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headerRow.innerHTML = `<th colspan="7">${opponent.name}とのバトル (再戦回数: ${rematchCount})</th>`;
+        tableHeader.appendChild(headerRow);
+        table.appendChild(tableHeader);
+
+        const tableBody = document.createElement('tbody');
+
+        opponent.battles.forEach(battle => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${battle.pokemonName}</td>
+            <td>
+              <button class="result-btn win-btn" onclick="updateResult('${opponent.name}', '${battle.pokemonName}', '勝ち')">勝ち</button>
+            </td>
+            <td>
+              <button class="result-btn lose-btn" onclick="updateResult('${opponent.name}', '${battle.pokemonName}', '負け')">負け</button>
+            </td>
+            <td>
+              <button class="result-btn" onclick="updateResult('${opponent.name}', '${battle.pokemonName}', 'ドーピング')">ドーピング</button>
+            </td>
+            <td>負けた回数: ${battle.loseCount}</td>
+            <td>ドーピング回数: ${battle.mediCount}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+        const addPokemonRow = document.createElement('tr');
+        addPokemonRow.innerHTML = `
+          <td><input type="text" id="pokemon-name-${opponent.name}" placeholder="ポケモンの名前"></td>
+          <td colspan="5">
+            <button class="add-pokemon-btn" onclick="addBattle('${opponent.name}')">追加</button>
+          </td>
+        `;
+        tableBody.appendChild(addPokemonRow);
+
+        table.appendChild(tableBody);
+        battleTablesDiv.appendChild(table);
+
+        lostgame += rematchCount;
+        totalBattles += totalWins + rematchCount;
+        madicount += totalmedis;
+      });
+
+      // 総戦闘数を表示
+      document.getElementById('total-battles').innerText = `総戦闘数: ${totalBattles} / 勝利数: ${totalBattles - lostgame}  敗北数: ${lostgame}`;
+      document.getElementById('total-madi').innerText = `ドーピング総数: ${madicount} 回`;
+    }
+
+    function addBattle(opponentName) {
+      const pokemonName = document.getElementById(`pokemon-name-${opponentName}`).value;
+      if (!pokemonName) {
+        alert("ポケモンの名前を入力してください！");
+        return;
+      }
+
+      const opponent = opponents.find(op => op.name === opponentName);
+      opponent.battles.push({
+        pokemonName: pokemonName,
+        result: "未選択",
+        winCount: 0,
+        loseCount: 0,
+        mediCount: 0
+      });
+
+      renderTables();
+    }
+
+    function updateResult(opponentName, pokemonName, result) {
+      const opponent = opponents.find(op => op.name === opponentName);
+      const battle = opponent.battles.find(b => b.pokemonName === pokemonName);
+
+      if (battle) {
+        battle.result = result;
+        if (result === "勝ち") {
+          battle.winCount++;
+        } else if (result === "負け") {
+          battle.loseCount++;
+        }else if (result === "ドーピング") {
+          battle.mediCount++;
+        }
+      }
+
+      renderTables();
+    }
+
+    let count = 0;
+    function addmedi() {
+      count++;
+      document.getElementById("total-madi").innerText = "ドーピング総数: " + count + "回";
+    }
+  </script>
 </body>
 </html>
